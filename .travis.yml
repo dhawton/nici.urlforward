@@ -1,0 +1,16 @@
+language: go
+go:
+  - 1.9
+sudo: required
+
+services:
+  - docker
+
+script:
+  - docker build -t $DOCKER_USERNAME/nici.urlforward .
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+    docker push $DOCKER_USERNAME/nici.urlforward;
+    fi
