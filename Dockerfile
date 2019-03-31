@@ -13,4 +13,5 @@ WORKDIR /root/
 COPY --from=0 /app/start.sh .
 COPY --from=0 /app/app .
 COPY --from=0 /app/template.html .
-CMD ["sh start.sh"]
+RUN chmod 755 /root/start.sh
+CMD ["/root/start.sh"]
