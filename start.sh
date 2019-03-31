@@ -19,7 +19,7 @@ env_secret_expand() {
 }
 
 env_secrets_expand() {
-  for f in /run/secrets; do
+  for f in /run/secrets/*; do
     source $f
   done
 }
