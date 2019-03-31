@@ -15,19 +15,13 @@ function env_secret_debug()
 #  name of the docker secret to use instead of the original value. For example:
 # XYZ_DB_PASSWORD={{DOCKER-SECRET:my-db.secret}}
 env_secret_expand() {
-  do source "${ENV_SECRETS_DIR}/${1}"
+  source "${ENV_SECRETS_DIR}/${1}"
 }
 
 env_secrets_expand() {
-    for env_var in $(printenv | cut -f1 -d"=")
-    do
-        env_secret_expand $env_var
-    done
-
-    if [ ! -z "$ENV_SECRETS_DEBUG" ]; then
-        echo -e "\n\033[1mExpanded environment variables\033[0m"
-        printenv
-    fi
+  for f in /run/secrets; do
+    source $f
+  done
 }
 
 env_secrets_expand
